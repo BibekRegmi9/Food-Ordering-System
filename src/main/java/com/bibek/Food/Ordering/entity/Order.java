@@ -3,11 +3,18 @@ package com.bibek.Food.Ordering.entity;
 import com.bibek.Food.Ordering.pojo.RestaurantPojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -32,6 +39,7 @@ public class Order {
 
     @OneToMany
     private List<Orderitem> items;
+
 
     private int totalItem;
 
