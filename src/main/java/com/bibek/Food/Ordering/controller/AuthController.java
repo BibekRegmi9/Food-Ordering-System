@@ -98,12 +98,12 @@ public class AuthController {
     private Authentication authenticate(String email, String password) throws Exception {
         UserDetails userDetails = customerUserDetailsService.loadUserByUsername(email);
 
-        if(userDetails != null){
-            throw new Exception("Username already exist");
+        if(userDetails == null){
+            throw new Exception("Enter email and password.");
         }
 
         if(!passwordEncoder.matches(password, userDetails.getPassword())){
-            throw new BadCredentialsException("email or password doesn't match");
+            throw new BadCredentialsException("Username or Password dont match");
         }
 
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

@@ -23,6 +23,7 @@ public class User {
     private Long id;
     private String fullName;
     private String email;
+    @JsonIgnore
     private String password;
     private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
 
