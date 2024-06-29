@@ -38,7 +38,7 @@ public class AdminRestaurantController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MessageResponse> deleteRestaurant(@RequestBody CreateRestaurantRequest request, @RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
+    public ResponseEntity<MessageResponse> deleteRestaurant(@RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
 
         restaurantService.deleteRestaurant(id);
@@ -49,7 +49,7 @@ public class AdminRestaurantController {
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Restaurant> updateRestaurantStatus(@RequestBody CreateRestaurantRequest request, @RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
+    public ResponseEntity<Restaurant> updateRestaurantStatus(@RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
 
         Restaurant restaurant = restaurantService.updateRestaurantStatus(id);
@@ -58,7 +58,7 @@ public class AdminRestaurantController {
 
 
     @GetMapping("/user")
-    public ResponseEntity<Restaurant> findRestaurantByUserId(@RequestBody CreateRestaurantRequest request, @RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<Restaurant> findRestaurantByUserId(@RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
 
         Restaurant restaurant = restaurantService.getRestaurantByUserId(user.getId());

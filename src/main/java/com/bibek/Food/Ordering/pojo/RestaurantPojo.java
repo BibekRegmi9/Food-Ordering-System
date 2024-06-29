@@ -14,7 +14,7 @@ import java.util.List;
 public class RestaurantPojo {
     private String title;
 
-    @ElementCollection
+
     @Column(length = 1000)
     private List<String> images;
 
