@@ -20,4 +20,6 @@ public class RestaurantPojo {
 
     private String description;
     private Long id;
+
+
 }
