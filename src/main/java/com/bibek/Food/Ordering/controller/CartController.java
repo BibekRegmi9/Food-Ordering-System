@@ -1,71 +1,60 @@
 package com.bibek.Food.Ordering.controller;
 
-import com.bibek.Food.Ordering.entity.Cart;
-import com.bibek.Food.Ordering.entity.CartItem;
+import com.bibek.Food.Ordering.constants.StringConstants;
 import com.bibek.Food.Ordering.request.AddCartItemRequest;
 import com.bibek.Food.Ordering.request.UpdateCartItemRequest;
+import com.bibek.Food.Ordering.response.GlobalApiResponse;
 import com.bibek.Food.Ordering.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-public class CartController {
+public class CartController extends BaseController{
 
     @Autowired
     private CartService cartService;
 
 
     @PutMapping("/cart/add")
-    public ResponseEntity<CartItem> addItemToCart(@RequestBody AddCartItemRequest request,
-                                                  @RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<GlobalApiResponse> addItemToCart(@RequestBody AddCartItemRequest request,
+                                                           @RequestHeader("Authorization") String jwt) throws Exception {
 
-        CartItem cartItem = cartService.addItemToCart(request, jwt);
-
-        return new ResponseEntity<>(cartItem, HttpStatus.OK);
+        return ResponseEntity.ok(successResponse(customMessageSource.get(StringConstants.SUCCESS_SAVE), cartService.addItemToCart(request, jwt)));
 
     }
 
 
     @PutMapping("/cart-item/update")
-    public ResponseEntity<CartItem> updateCartItemQuantity(@RequestBody UpdateCartItemRequest request,
-                                                  @RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<GlobalApiResponse> updateCartItemQuantity(@RequestBody UpdateCartItemRequest request,
+                                                                    @RequestHeader("Authorization") String jwt) throws Exception {
 
-        CartItem cartItem = cartService.updateCartItemQuantity(request.getCartItemId(), request.getQuantity());
-
-        return new ResponseEntity<>(cartItem, HttpStatus.OK);
+        return ResponseEntity.ok(successResponse(customMessageSource.get(StringConstants.SUCCESS_UPDATE), cartService.updateCartItemQuantity(request.getCartItemId(), request.getQuantity())));
 
     }
 
 
     @DeleteMapping("/cart-item/{id}/remove")
-    public ResponseEntity<Cart> removeCartItems(@PathVariable Long id,
+    public ResponseEntity<GlobalApiResponse> removeCartItems(@PathVariable Long id,
                                                   @RequestHeader("Authorization") String jwt) throws Exception {
 
-        Cart cart = cartService.removeItemFromCart(id, jwt);
-
-        return new ResponseEntity<>(cart, HttpStatus.OK);
+        return ResponseEntity.ok(successResponse(customMessageSource.get(StringConstants.SUCCESS_DELETE), cartService.removeItemFromCart(id, jwt)));
 
     }
 
 
     @PutMapping("/cart/clear")
-    public ResponseEntity<Cart> clearCart(@RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<GlobalApiResponse> clearCart(@RequestHeader("Authorization") String jwt) throws Exception {
 
-        Cart cart = cartService.clearCart(jwt);
-
-        return new ResponseEntity<>(cart, HttpStatus.OK);
+        return ResponseEntity.ok(successResponse(customMessageSource.get(StringConstants.SUCCESS_UPDATE), cartService.clearCart(jwt)));
 
     }
 
     @GetMapping("/cart")
-    public ResponseEntity<Cart> findCart(@RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<GlobalApiResponse> findCart(@RequestHeader("Authorization") String jwt) throws Exception {
 
-        Cart cart = cartService.findCartByUserId(jwt);
-
-        return new ResponseEntity<>(cart, HttpStatus.OK);
+        return ResponseEntity.ok(successResponse(customMessageSource.get(StringConstants.SUCCESS_RETRIEVE), cartService.findCartByUserId(jwt)));
 
     }
 }
