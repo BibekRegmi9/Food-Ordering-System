@@ -1,6 +1,5 @@
 package com.bibek.Food.Ordering.entity;
 
-import com.bibek.Food.Ordering.pojo.RestaurantPojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
