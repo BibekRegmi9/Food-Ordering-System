@@ -17,4 +17,6 @@ public interface OrderService {
     public List<Order> getUsersOrder(Long userId);
 
     public List<Order> getRestaurantOrder(Long restaurantId, String orderStatus);
+
+    public Order findOrderById(Long orderId);
 }
